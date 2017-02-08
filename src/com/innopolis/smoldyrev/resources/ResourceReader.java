@@ -5,10 +5,6 @@ import com.innopolis.smoldyrev.collector.WordCollector;
 import java.io.*;
 import java.net.URL;
 
-
-/**
- * Created by smoldyrev on 07.02.17.
- */
 public class ResourceReader {
 
      private BufferedReader buffReader;
