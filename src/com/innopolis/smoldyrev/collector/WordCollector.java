@@ -33,8 +33,9 @@ public class WordCollector {
      * выводит список words
      */
     public static void getWords() {
+        System.out.println("\n=======ИТОГОВЫЙ ОТЧЕТ=======");
         for (String str:words.keySet()) {
-            System.out.println(str+" " + words.get(str));
+            System.out.println(str+" = " + words.get(str));
         }
     }
 

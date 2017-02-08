@@ -18,11 +18,8 @@ public class ResourceReader {
      * Конструктор - создание нового объекта
      * @see ResourceReader#ResourceReader(String)
      */
-    public ResourceReader(String filePath) throws FileNotFoundException,
-                                                    MalformedURLException,
-                                                        IOException {
+    public ResourceReader(String filePath) throws IOException {
 
-        try {
 
             InputStream stream;
 
@@ -34,21 +31,6 @@ public class ResourceReader {
             }
 
             br = new BufferedReader(new InputStreamReader(stream));
-
-        } catch ( FileNotFoundException ex ) {
-
-            System.out.println("Файл: "+filePath+" не найден");
-
-        } catch (MalformedURLException e) {
-
-            System.out.println("Ссылка: "+filePath+" имеет неправльный формат");
-
-        } catch (IOException e) {
-
-            System.out.println("Проблема с получением файла");
-
-        }
-
     }
 
     /**
@@ -90,10 +72,10 @@ public class ResourceReader {
     }
 
     public void closeReader() {
-        try {
+        try{
             br.close();
         } catch (IOException e) {
-            System.out.println("Ресурс не открыт! Закрытие невозможно");
+            System.out.println("Ресурс не закрыт!");
         }
     }
 
