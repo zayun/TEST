@@ -3,7 +3,6 @@ package com.innopolis.smoldyrev.resources;
 import com.innopolis.smoldyrev.collector.WordCollector;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -12,25 +11,29 @@ import java.net.URL;
  */
 public class ResourceReader {
 
-     private BufferedReader br;
+     private BufferedReader buffReader;
+     private String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
 
     /**
      * Конструктор - создание нового объекта
      * @see ResourceReader#ResourceReader(String)
      */
     public ResourceReader(String filePath) throws IOException {
-
-
+            this.filePath = filePath;
             InputStream stream;
 
-            if (filePath.contains("http://")) {
+            if (filePath.contains("http://")|filePath.contains("https://")) {
                 URL myURL = new URL(filePath);
                 stream = myURL.openStream();
             } else {
                 stream = new FileInputStream(filePath);
             }
 
-            br = new BufferedReader(new InputStreamReader(stream));
+            buffReader = new BufferedReader(new InputStreamReader(stream));
     }
 
     /**
@@ -40,16 +43,16 @@ public class ResourceReader {
      * @throws Exception если в файле встречается неразрешенный символ
      */
     public void sendTextToCounter() throws Exception {
-        while (br.ready()) {
+        while (buffReader.ready()) {
 
-            for (String str: br.readLine().split("\\s+")) {
+            for (String str: buffReader.readLine().split("\\s+")) {
 
                 if (isValidValue(str)) {
                     /*приводим слова в правильный вид*/
                     str = str.replaceAll("[^А-Яа-яёЁ-]","").toLowerCase();
                     WordCollector.put(str);
                 } else {
-                    throw new Exception("Текст содержит не кирилические символы!");
+                    throw new Exception("Текст \""+ this.filePath +"\" содержит не кирилические символы!");
                 }
             }
         }
@@ -73,7 +76,7 @@ public class ResourceReader {
 
     public void closeReader() {
         try{
-            br.close();
+            buffReader.close();
         } catch (IOException e) {
             System.out.println("Ресурс не закрыт!");
         }
