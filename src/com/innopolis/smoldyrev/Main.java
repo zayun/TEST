@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<ResourceReader> resources = new ArrayList<>();
-        for (String filePath:
-             args) {
-            resources.add(new ResourceReader(filePath));
-        }
+//        ArrayList<ResourceReader> resources = new ArrayList<>();
+//        for (String filePath:
+//             args) {
+//            resources.add(new ResourceReader(filePath));
+//        }
         String filePath = args[0];
         ResourceReader reader;
 
